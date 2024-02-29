@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CloudFormation Stack for LambdaName lambda function
+Resources:
+  LambdaName:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      CodeUri: src/
+      AutoPublishAlias: live
+      # Layers:
+      #   - arn:aws:lambda:eu-west-1:850837110171:layer:SentrySDK:1
+      #   - arn:aws:lambda:eu-west-1:850837110171:layer:numpy1-19-5:1
+      #   - arn:aws:lambda:eu-west-1:850837110171:layer:opencv-python-4-5-1-48:1
+      DeploymentPreference:
+        Type: AllAtOnce
+      Timeout: 900
+      MemorySize: 10240
+      Environment:
+        Variables:
+          variable1: foo
+          variable2: bar

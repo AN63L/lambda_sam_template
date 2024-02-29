@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CloudFormation Stack for lambda function
+
+Resources:
+# Details about the LambdaName function
+  LambdaName:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs18.x
+      CodeUri: src/
+# Creates an alias named "live" for the function, and automatically publishes when you update the function.
+      AutoPublishAlias: live
+      DeploymentPreference:
+# Specifies the deployment configuration
+          Type: AllAtOnce
+      # 15 minutes
+      Timeout: 900 
+      MemorySize: 5120
