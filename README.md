@@ -11,7 +11,7 @@ AWS CodeCommit push mirroring is currently the best way to connect GitLab reposi
 
 ## Overview
 
------> schema here
+![Schema](./docs/schema.png)
 
 ## Before we start
 
@@ -59,12 +59,17 @@ All your code should be in a “src” folder.
 
 ### template.yml structure
 
+I've included two templates in the docs folder, one for a Python runtime and one for Node.js runtime. Both have a very similar structure. 
 
----> variables and limits
+The main body of the file will contain the resource you are looking to create, with a name properties (runtime, code path, memory size and timeout). You can also include environment variables. 
+
+You can find information on environment variables from [the official AWS documentation](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html).
+
+Note: You cannot have an infinite number of variables, the total size of the environment variables cannot exceed 4KB. I have found that based on the length of the name of your variables, you can hold around 40 variables. 
 
 ### buildspec.yml structure
 
----> complete
+The buildspec file is quite simple and only contains a build phase. It simply packages the files onto S3 and then creates a stack (available in Cloudstack) with the declared resources.
 
 
 ## Step-by-step guide
@@ -95,10 +100,10 @@ If you lambda uses layers (i.e. python libraries), you’ll have to create them 
 
 - Go to CodePipeline and create a pipeline with:
   - CodeCommit as source
-  - ----->>>>>>The execution role CodePipelineExecutionRole
+  - ----->>>>>>The execution role CodePipelineExecutionRole (give main propeties)
   - The specially created bucket
   - The correct codecommit repository and branch based on the environment
-  - -----> The correct build phase for the object
+  - -----> The correct build phase for the object (guide creating build prokect)
   - -----> The same build role: CodePipelineExecutionRole
   - No deploy phase
   - (optional) A notification, for example to a specific slack channel

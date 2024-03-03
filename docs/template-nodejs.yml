@@ -1,12 +1,18 @@
+# required
 AWSTemplateFormatVersion : '2010-09-09'
+# required
 Transform: AWS::Serverless-2016-10-31
+# short description
 Description: CloudFormation Stack for lambda function
-
+# define the resources (you can define more than one)
 Resources:
-# Details about the LambdaName function
+  # name of the resource
   LambdaName:
+    # required
     Type: AWS::Serverless::Function
+    # main properties
     Properties:
+      # edit based on your needs
       Handler: index.handler
       Runtime: nodejs18.x
       CodeUri: src/
@@ -15,6 +21,7 @@ Resources:
       DeploymentPreference:
 # Specifies the deployment configuration
           Type: AllAtOnce
-      # 15 minutes
+      # default is 3, this is 15 minutes
       Timeout: 900 
+      # memory allocated, maximum is 10240
       MemorySize: 5120
