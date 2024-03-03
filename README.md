@@ -100,11 +100,11 @@ If you lambda uses layers (i.e. python libraries), you’ll have to create them 
 
 - Go to CodePipeline and create a pipeline with:
   - CodeCommit as source
-  - ----->>>>>>The execution role CodePipelineExecutionRole (give main propeties)
+  - Add the relevant IAM role. You can create one from scratch, using the CodePipeline UI. I have found that the base policies attached to that role aren't sufficient. You will need to enable that role to: manage the policies, tags, etc. of the lambda including parameters, layers and permissions. You will need to update it based on the resources you want to create. 
   - The specially created bucket
   - The correct codecommit repository and branch based on the environment
-  - -----> The correct build phase for the object (guide creating build prokect)
-  - -----> The same build role: CodePipelineExecutionRole
+  - The correct build phase for the object. If you have never created one, I highly recommend you create during the CodePipeline process rather than before or after. This will ensure that you have the right permissions.
+  - You can create a separate build role or use the same as the IAM role you created in 2.
   - No deploy phase
   - (optional) A notification, for example to a specific slack channel
 
