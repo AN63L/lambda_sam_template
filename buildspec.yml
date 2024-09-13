@@ -1,0 +1,41 @@
+version: 0.2
+
+phases:
+  ## FOR PYTHON###
+  install:
+    commands:
+      - echo Nothing to do in the install phase...
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  ####
+  ## FOR NODE ##
+  install:
+    commands:
+      - echo node -v
+      - node -v
+      - echo npm -v
+      - npm -v
+      - echo install yarn...
+      - npm install -g yarn
+      - echo yarn -v
+      - yarn -v
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - cd src/
+      - yarn
+      - cd ..
+  #####
+  build:
+    commands:
+    - aws cloudformation package --template-file template.yml 
+                                  --s3-bucket s3buildbucketname #TO EDIT
+                                  --output-template-file newtemplate.yml
+    - aws cloudformation deploy --stack-name LambdaName #TO EDIT
+                                --capabilities CAPABILITY_IAM
+                                --template-file newtemplate.yml
+                                --role-arn arn:aws:iam::<account-id>:role/CloudFormationServiceRole #TO EDIT
+  post_build:
+    commands:
+      - echo Build completed

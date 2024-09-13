@@ -18,10 +18,10 @@ Resources:
       CodeUri: src/
       AutoPublishAlias: live
       # example layers
-      # Layers:
-      #   - arn:aws:lambda:eu-west-1:850837110171:layer:SentrySDK:1
-      #   - arn:aws:lambda:eu-west-1:850837110171:layer:numpy1-19-5:1
-      #   - arn:aws:lambda:eu-west-1:850837110171:layer:opencv-python-4-5-1-48:1
+      Layers:
+        - arn:aws:lambda:<region>:<account-id>:layer:SentrySDK:1
+        - arn:aws:lambda:<region>:<account-id>:layer:numpy1-19-5:1
+        - arn:aws:lambda:<region>:<account-id>:layer:opencv-python-4-5-1-48:1
       DeploymentPreference:
         Type: AllAtOnce
       # default is 3, this is 15 minutes

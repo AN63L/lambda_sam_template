@@ -1,11 +1,6 @@
---> add images
---> review templates
-
 # Lambda SAM pipeline with Gitlab 
 
 This is a simple guide to setup a Lambda using the a SAM template with full CI/CD pipeline instructions.
-
-It assumes an existing infrastructure with an existing API (using API gateway)
 
 AWS CodeCommit push mirroring is currently the best way to connect GitLab repositories to AWS CodePipeline, as GitLab is not yet supported as one of their Source Code Management (SCM) providers.
 
@@ -70,6 +65,10 @@ Note: You cannot have an infinite number of variables, the total size of the env
 ### buildspec.yml structure
 
 The buildspec file is quite simple and only contains a build phase. It simply packages the files onto S3 and then creates a stack (available in Cloudstack) with the declared resources.
+
+Optionally, it will install the node packages. You can safely add your node_modules to your .gitignore file to save space in your online git repositories. In the sample file, I've also shown how to do it with yarn rather than npm. 
+
+**Make sure to edit the sample buildspec.yml file and remove the comments, it will not run as is**.
 
 
 ## Step-by-step guide
